@@ -1,18 +1,41 @@
 <!--index.wxml-->
-<view class="container">
+<view class="container i-header ">
   <view  bindtap="bindViewTap" class="userinfo">
-  <text class="user-motto">{{motto}}</text>
-    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+      
+  </view>
+</view>
+<view class="flex box box-tb box-align-center ">
+  
+  <view class="pd25 flex box box-tb box-align-center  bd-bottom">
+     <view class="flex-column">
+            <input name="title" class="memo-input bd-bottom" type="text" placeholder="宠物名字" placeholder-style="color:gray" bindinput="listenerNameInput" />
+            
+            <view class="flex-row">
+              <text  class="flex-row">生日</text>
+              <view class="flex-row">
+                <picker mode="date" value="{{date}}" start="1970-01-01" end="2017-10-10" bindchange="listenerDatePickerSelected">
+                    <text>{{date}}</text>
+                </picker>
+              </view>
+            </view>
+            <view class="flex-row">
+              <text  class="flex-row">类型</text>
+              <view class="flex-row">
+                <picker mode="selector" range="{{array}}" value="{{index}}" bindchange="listenerPickerSelected">
+                    <text>{{array[index]}}</text>
+                </picker>
+              </view>
+            </view>
+      </view>
+      <radio-group name="radio" bindchange="listenerRadioGroup">
+          <label class="flex-row" wx:for-items="{{items}}">
+              <radio value="{{item.name}}"/>{{item.value}}
+          </label>
+      </radio-group>
     
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-    <text class="user-motto">{{motto}}</text>
-    <text class="user-motto">{{motto}}</text>
-
-    <text class="user-motto">23333</text>
-
-    
-  </view>
+  <import src="../../template/footer.wxml"/>
+  <template is="foot"></template>
 </view>

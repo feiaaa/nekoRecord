@@ -1,9 +1,9 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/logs/logs",
-    "pages/me/me",
-    "pages/calendar/calendar"
+    "pages/logs/logs",   
+    "pages/calendar/calendar",
+    "pages/memo/memo"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -18,20 +18,15 @@
      "borderStyle": "black",
      "list": [
        {
-         "pagePath": "pages/index/index",
-         "text": "首页"
-
-       },{
-         "pagePath": "pages/logs/logs",
-         "text": "日志"
-
-       },{
          "pagePath": "pages/calendar/calendar",
          "text": "日历"
-         
+       },{
+        
+         "pagePath": "pages/memo/memo",
+         "text": "预约"
 
        },{
-         "pagePath": "pages/me/me",
+         "pagePath": "pages/index/index",
          "text": "我的"
 
        }

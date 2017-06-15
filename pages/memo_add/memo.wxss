@@ -1,0 +1,19 @@
+.dis-flex{display: flex;}
+
+.events-type {
+  
+  flex-direction: row;
+  padding: 40rpx;
+}
+.flex-row {
+  flex-direction:row;justify-content: space-between;
+}
+.flex-column {
+  flex-direction:column;
+}
+
+.memo-input{
+  padding: 5rpx;
+  margin: 10rpx 0;
+  
+}

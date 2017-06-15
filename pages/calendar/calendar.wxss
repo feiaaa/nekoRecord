@@ -48,10 +48,14 @@
     position: relative;
     left: 0;
     top: 0;
-    color: #fff;
+   
 }
 .pink-bg {
     background-color: #ff629a;
+    color: #fff;
+}
+.pink-bd {
+    border:1px solid #ff629a;
 }
 .purple-bg {
     background-color: #b8b8f1;

@@ -1,6 +1,18 @@
+var util = require('../../utils/util.js');
 const conf = {
+  
   data: {
-    hasEmptyGrid: false
+    hasEmptyGrid: false,
+    today: util.today(new Date),//for today
+    curMonth: util.curMonth(new Date),//for today
+    can:false,// for switch
+    out:false,// for switch
+    items: [
+        {name: 'food', value: '喂食'},
+        {name: 'water', value: '换水'},
+        {name: 'shit', value: '便便'},
+        {name: 'sand', value: '换沙'}
+    ]// for checkbox
   },
   onLoad(options) {
     const date = new Date();
@@ -92,10 +104,34 @@ const conf = {
   onShareAppMessage() {
     return {
       title: '小程序日历',
-      desc: '还是新鲜的日历哟',
+      desc: '小程序日历',
       path: 'pages/calendar/calendar'
     }
+  },
+
+//calendar end,switch start
+
+ canlistenerSwitch: function(e) {
+   this.data.can = e.detail.value;
+    console.log('can开关当前状态-----', this.data.can);
+
+  },
+  outlistenerSwitch: function(e) {
+    this.data.out = e.detail.value;
+    console.log('out开关当前状态-----', this.data.out);
+
+  },
+  /**
+   * checkbox
+   */
+  listenerCheckboxChange: function(e) {
+    this.data.items = e.detail.value;
+    console.log('checkbox当前状态-----', this.data.items)
   }
+
+
+
+
 };
 
 Page(conf);
