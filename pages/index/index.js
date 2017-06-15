@@ -1,3 +1,6 @@
+var Bmob = require('../../utils/bmob.js');
+var common = require('../../utils/common.js');
+
 //index.js
 //获取应用实例
 var app = getApp()
@@ -54,5 +57,8 @@ Page({
         userInfo:userInfo
       })
     })
+  },
+  about: function (e) {
+    common.showModal('管理宠物的健康，记录日常饲养过程\n 记录宠物疫苗 / 洗澡 / 就医复诊等预约活动');
   }
 })

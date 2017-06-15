@@ -1,41 +1,58 @@
 <!--index.wxml-->
-<view class="container i-header ">
+<view class="page">
+  <!--页头-->
+  <view class="page__hd">
+  <view class="container i-header ">
   <view  bindtap="bindViewTap" class="userinfo">
       <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
       
   </view>
 </view>
-<view class="flex box box-tb box-align-center ">
-  
-  <view class="pd25 flex box box-tb box-align-center  bd-bottom">
-     <view class="flex-column">
-            <input name="title" class="memo-input bd-bottom" type="text" placeholder="宠物名字" placeholder-style="color:gray" bindinput="listenerNameInput" />
-            
-            <view class="flex-row">
-              <text  class="flex-row">生日</text>
-              <view class="flex-row">
-                <picker mode="date" value="{{date}}" start="1970-01-01" end="2017-10-10" bindchange="listenerDatePickerSelected">
-                    <text>{{date}}</text>
-                </picker>
-              </view>
-            </view>
-            <view class="flex-row">
-              <text  class="flex-row">类型</text>
-              <view class="flex-row">
-                <picker mode="selector" range="{{array}}" value="{{index}}" bindchange="listenerPickerSelected">
-                    <text>{{array[index]}}</text>
-                </picker>
-              </view>
-            </view>
-      </view>
-      <radio-group name="radio" bindchange="listenerRadioGroup">
-          <label class="flex-row" wx:for-items="{{items}}">
-              <radio value="{{item.name}}"/>{{item.value}}
-          </label>
-      </radio-group>
-    
   </view>
+  <!--主体 start-->
+  <view class="page__bd">
+    <view class="weui-panel">
+            <view class="weui-panel__hd">账户中心</view>
+            <view class="weui-panel__bd">
+
+            <view class="weui-media-box weui-media-box_small-appmsg">
+                    <view class="weui-cells weui-cells_in-small-appmsg">
+                        <navigator  url="../petlist/petlist"  class="weui-cell weui-cell_access"
+                                   hover-class="weui-cell_active">
+                            <view class="weui-cell__hd">
+                                <image src="/image/reg.png" style="width: 20px;height: 20px;margin-right: 5px"  />
+                            </view>
+                            <view class="weui-cell__bd weui-cell_primary">
+                                <view>宠物管理</view>
+                            </view>
+                            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                        </navigator>
+                         <navigator url="" bindtap="about" class="weui-cell weui-cell_access"
+                                   hover-class="weui-cell_active">
+                            <view class="weui-cell__hd">
+                                <image src="/image/help.png" style="width: 20px;height: 20px;margin-right: 5px"  />
+                            </view>
+                            <view class="weui-cell__bd weui-cell_primary">
+                                <view>关于本程序</view>
+                            </view>
+                            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                        </navigator>
+                    
+                    
+            </view>
+
+            </view><!--panel-bd end-->
+    </view><!--weui-panel end-->
+  </view>
+  <!--主体 end-->
   <import src="../../template/footer.wxml"/>
   <template is="foot"></template>
+</view>
+
+
+
+
+
+ 
 </view>

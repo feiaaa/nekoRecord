@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/logs/logs",   
     "pages/calendar/calendar",
-    "pages/memo/memo"
+    "pages/memo/memo",
+    "pages/petlist/petlist"
   ],
   "window":{
     "backgroundTextStyle":"light",
