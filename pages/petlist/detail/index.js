@@ -1,4 +1,4 @@
-// pages/memo/detail/index.js
+// pages/petlist/detail/index.js
 var Bmob = require('../../../utils/bmob.js');
 Page({
   data: {

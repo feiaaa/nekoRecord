@@ -10,7 +10,11 @@ var that;
 Page({
   data: {
     array: ['猫', '狗', '兔子', '松鼠', '仓鼠','鱼', '其他'],
-    currentTime: birth.now(),//util.formatTime(new birth),//此处为时间戳，如果要显示当前时间用后者
+    currentTime: Date.now(),//util.formatTime(new Date),//此处为时间戳，如果要显示当前时间用后者
+    items: [
+      { name: '公', value: '公', checked: 'true' },
+      { name: '母', value: '母' }
+    ],
     birth: '2017-6-12',
     
     writePet: false,
@@ -21,6 +25,17 @@ Page({
     petList: [],
     modifyPets: false
   },
+
+  /**
+   * 监听普通picker选择器
+   */
+  listenerPickerSelected: function (e) {
+    //改变index值，通过setData()方法重绘界面
+    this.setData({
+      index: e.detail.value
+    });
+  },
+  
   onLoad: function () {
     that = this;
 
@@ -201,10 +216,10 @@ Page({
 
 /*
 * 获取数据
-
+*/
 function getList(t, k) {
   that = t;
-  var Pet = Bmob.Object.extend("pet");
+  var Pet = Bmob.Object.extend("petlist");
   var query = new Bmob.Query(Pet);
 
   //会员模糊查询
@@ -233,7 +248,7 @@ function getList(t, k) {
     }
   });
 }
-*/
+
 function modify(t, e) {
   var that = t;
   //修改宠物

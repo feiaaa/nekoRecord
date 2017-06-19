@@ -14,21 +14,27 @@
   },
   "tabBar":{
      "color": "#717171",
-     "selectedColor": "#ff629a",
-     "backgroundColor": "white",
-     "borderStyle": "black",
-     "list": [
-       {
-         "pagePath": "pages/calendar/calendar",
-         "text": "日历"
-       },{
-        
-         "pagePath": "pages/memo/memo",
-         "text": "预约"
-
-       },{
-         "pagePath": "pages/index/index",
-         "text": "我的"
+    "selectedColor": "#ff629a",
+    "backgroundColor": "white",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/calendar/calendar",
+        "iconPath": "image/icon_calendar.png",
+        "selectedIconPath": "image/icon_calendar_HL.png",
+        "text": "日历"
+      },
+      {
+        "pagePath": "pages/memo/memo",
+        "iconPath": "image/icon_memo.png",
+        "selectedIconPath": "image/icon_memo_HL.png",
+        "text": "预约"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "image/icon_me.png",
+        "selectedIconPath": "image/icon_me_HL.png",
+        "text": "我的"
 
        }
 

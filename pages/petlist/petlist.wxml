@@ -9,7 +9,7 @@
     <view class="weui-panel__hd">宠物列表</view>
         <view class="weui-panel__bd">
 <block wx:if="{{petList.length>0}}">
-          <navigator class="weui-media-box weui-media-box_text" wx:for="{{petList}}" wx:key="petItem" url="/pages/memo/detail/index?objectId={{item.objectId}}">
+          <navigator class="weui-media-box weui-media-box_text" wx:for="{{petList}}" wx:key="petItem" url="/pages/petlist/detail/index?objectId={{item.objectId}}">
             <view class="weui-media-box__info">
                 <view class="weui-media-box__info__meta tag-radius  tag-active">
                   {{item.tag}}
@@ -29,11 +29,11 @@
 
 
             <view class="weui-media-box__info">
-              <view class="weui-media-box__desc">{{item.gender}}</view>
-              <view class="weui-media-box__info__meta weui-media-box__info__operate">
-                    
-                    <view class="weui-media-box__desc">{{item.setri}}</view>
-              </view>
+              <view class="weui-media-box__desc weui-media-box__info__meta " wx:if="{{item.gender==false}}">母</view>
+              <view class="weui-media-box__desc weui-media-box__info__meta " wx:else>公</view>
+              <view class="weui-media-box__desc weui-media-box__info__meta " wx:if="{{item.steri==true}}">已绝育</view>
+              <view class="weui-media-box__desc weui-media-box__info__meta " wx:else></view>
+              
             </view>
           </navigator>
 </block>
@@ -57,7 +57,7 @@
   <template is="foot"></template>
 </view>
 
-<!--添加和修改日记-->
+<!--添加和修改宠物-->
 <image class="toWrite" bindtap="toAddPet" src="/image/add.png"></image>
 <view class="js_dialog" id="androidDialog1" style="opacity: 1;" wx:if="{{writePet}}">
   <view class="weui-mask"></view>
@@ -71,49 +71,48 @@
          </picker>
 
 
-        <view class="weui-cells__title">标题</view>
+        <view class="weui-cells__title">名字</view>
         <view class="weui-cells weui-cells_after-title">
           <view class="weui-cell weui-cell_input">
             <view class="weui-cell__bd">
-              <input class="weui-input" name="title" placeholder="请输入标题" />
+              <input class="weui-input" name="name" placeholder="请输入名字" />
             </view>
           </view>
         </view>
 
-        <view class="weui-cells__title">地点</view>
-        <view class="weui-cells weui-cells_after-title">
-          <view class="weui-cell weui-cell_input">
-            <view class="weui-cell__bd">
-              <input class="weui-input" name="address" value="{{nowAddress}}" placeholder="请输入地点" />
-            </view>
-          </view>
-        </view>
-
-        <view class="weui-cells__title">活动时间</view>
+        <view class="weui-cells__title">生日</view>
         <view class="weui-cells weui-cells_after-title">
           <view class="weui-cell">
             <view class="weui-media-box__info__meta flex-row">
               
                 <picker mode="date" value="{{date}}" name="date" start="2016-09-26" end="2017-10-10">
                     <text>{{date}}</text>
-                </picker>
-                <picker mode="time" value="{{time}}" name="appointment" start="09:00" end="21:00">
-                    <text>{{time}}</text>
-                </picker>
-
+                </picker>             
             </view>
           </view>
         </view>
         
-        <view class="weui-cells__title">备注</view>
-        <view class="weui-cells weui-cells_after-title">
-          <view class="weui-cell">
-            <view class="weui-cell__bd">
-              <textarea class="weui-textarea" name="content" placeholder="请输入备注" style="height: 3.3em" />
-              <view class="weui-textarea-counter">0/200</view>
-            </view>
+        <view class="flex-row">
+          <text  class="flex-row">类型</text>
+          <view class="flex-row">
+            <picker mode="selector" range="{{array}}" value="{{index}}" name="tag">
+                <text>{{array[index]}}</text>
+            </picker>
           </view>
         </view>
+        <view class="box box-lr box-pack-between box-align-center wd100">
+            <radio-group name="tag">
+              <label class="flex-row" wx:for-items="{{items}}">
+                  <radio value="{{item.name}}"/>{{item.value}}
+              </label>
+          </radio-group>
+            <view class=" wd25">绝育</view>
+            <view class=" wd25">
+                <switch type="switch" name="steri" checked="false" bindchange="outlistenerSwitch"/>
+            </view>
+                    
+        </view>
+        
       </view>
       <view class="weui-dialog__ft">
         <view class="weui-dialog__btn weui-dialog__btn_default" bindtap="noneWindows">取消</view>
@@ -125,23 +124,23 @@
 <view class="js_dialog" id="androidDialog2" style="opacity: 1;" wx:if="{{modifyPets}}">
   <view class="weui-mask"></view>
   <view class="weui-dialog weui-skin_android">
-    <view class="weui-dialog__hd"><strong class="weui-dialog__title">修改日记</strong>  </view>
+    <view class="weui-dialog__hd"><strong class="weui-dialog__title">修改宠物</strong>  </view>
     <form bindsubmit="modifyPet">
       <view class="weui-dialog__bd">
-        <view class="weui-cells__title">标题</view>
+        <view class="weui-cells__title">名字</view>
         <view class="weui-cells weui-cells_after-title">
           <view class="weui-cell weui-cell_input">
             <view class="weui-cell__bd">
-              <input class="weui-input" name="title" value="{{nowTitle}}" placeholder="请输入标题" />
+              <input class="weui-input" name="title" value="{{nowTitle}}" placeholder="请输入名字" />
             </view>
           </view>
         </view>
         
-        <view class="weui-cells__title">日记内容</view>
+        <view class="weui-cells__title">宠物内容</view>
         <view class="weui-cells weui-cells_after-title">
           <view class="weui-cell">
             <view class="weui-cell__bd">
-              <textarea class="weui-textarea" name="content" value="{{nowContent}}" placeholder="请输入日记内容" style="height: 3.3em" />
+              <textarea class="weui-textarea" name="content" value="{{nowContent}}" placeholder="请输入宠物内容" style="height: 3.3em" />
               <view class="weui-textarea-counter">0/200</view>
             </view>
           </view>
