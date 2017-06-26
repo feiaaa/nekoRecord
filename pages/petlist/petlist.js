@@ -1,4 +1,4 @@
-//memo.js
+//petlist.js
 //需要获取当前时间
 var util = require('../../utils/util.js');
 
@@ -7,16 +7,17 @@ var Bmob = require('../../utils/bmob.js');
 var common = require('../../utils/common.js');
 var app = getApp();
 var that;
+
+
 Page({
   data: {
-    array: ['猫', '狗', '兔子', '松鼠', '仓鼠','鱼', '其他'],
-    currentTime: Date.now(),//util.formatTime(new Date),//此处为时间戳，如果要显示当前时间用后者
-    items: [
-      { name: '公', value: '公', checked: 'true' },
-      { name: '母', value: '母' }
-    ],
-    birth: '2017-6-12',
-    
+    array: ['点击改变宠物类型', '猫', '狗', '兔子', '松鼠', '仓鼠', '鱼', '其他'],
+    index: 0,
+    tag:'',
+    genderTxt:'公',
+    steriTxt: '已绝育',
+    date: util.formatTime(new Date),//显示当前时间
+    birth: '2017-06-12 00:00:00',
     writePet: false,
     loading: false,
     windowHeight: 0,
@@ -25,17 +26,52 @@ Page({
     petList: [],
     modifyPets: false
   },
-
   /**
-   * 监听普通picker选择器
-   */
+     * 监听普通picker选择器
+     */
   listenerPickerSelected: function (e) {
+
     //改变index值，通过setData()方法重绘界面
     this.setData({
       index: e.detail.value
     });
+    
   },
-  
+  /**
+   * switch开关监听
+   */
+  sListenerSwitch: function (e) {
+    if (e.detail.value) {
+      this.setData({
+        steriTxt: '已绝育'
+      })
+    } else {
+      this.setData({
+        steriTxt: '未绝育'
+      })
+    }
+
+  },
+  gListenerSwitch: function (e) {
+    if (e.detail.value) {
+      this.setData({
+        genderTxt: '公'
+      })
+    } else {
+      this.setData({
+        genderTxt: '母'
+      })
+    }
+
+  },
+  /**
+   * 监听日期picker选择器
+   */
+  listenerDatePickerSelected: function (e) {
+    this.setData({
+      date: e.detail.value
+    })
+  },
   onLoad: function () {
     that = this;
 
@@ -73,15 +109,27 @@ Page({
   },
   addPet: function (event) {
     var name = event.detail.value.name;
-    var birth = event.detail.value.birth;
-    var age = event.detail.value.age;    
+
+    var birth = new Date(event.detail.value.birth);
+    var age = Number(event.detail.value.age);    
     var tag = event.detail.value.tag;
-    var gender = event.detail.value.gender;
+     
+    var gender = event.detail.value.gender;    
     var steri = event.detail.value.steri;
+
+    var regNum = new RegExp('[0-9]', 'g');//正则表达式
 
     if (!name) {
       common.showTip("名字不能为空", "loading");
-    }    
+    } 
+   
+    else if (tag==0) {
+      common.showTip("请选择宠物类型", "loading");
+    }
+    else if (!regNum.test(age)) {
+      common.showTip("请输入数字", "loading");
+    }  
+   
     else {
       that.setData({
         loading: true
@@ -114,13 +162,18 @@ Page({
           common.showTip('添加宠物成功');
           that.setData({
             writePet: false,
-            loading: false
+            loading: false,
+            index: 0,//以下切回初始状态
+            tag:'',
+            steriTxt: '已绝育',
+            genderTxt: '公',
           })
           that.onShow()
         },
         error: function (result, error) {
           // 添加失败
           common.showTip('添加宠物失败，请重新发布', 'loading');
+          
 
         }
       });
@@ -162,9 +215,10 @@ Page({
     var nowBirth = event.target.dataset.birth;
     var nowAge = event.target.dataset.age;
     var nowTag = event.target.dataset.tag;
+
     var nowGender = event.target.dataset.gender;
     var nowSteri = event.target.dataset.steri;
-    var nowId = event.target.dataset.id;
+
     that.setData({
       modifyPets: true,
       nowName: nowName,
@@ -172,8 +226,8 @@ Page({
       nowAge: nowAge,
       nowTag:nowTag,//
       nowGender: nowGender,
-      nowSteri: nowSteri,
-      nowId: nowId
+      nowSteri: nowSteri//,
+      //nowId: nowId
     })
   },
   modifyPet: function (e) {

@@ -4,7 +4,8 @@
     "pages/logs/logs",   
     "pages/calendar/calendar",
     "pages/memo/memo",
-    "pages/petlist/petlist"
+    "pages/petlist/petlist",
+    "pages/test/test"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -36,7 +37,11 @@
         "selectedIconPath": "image/icon_me_HL.png",
         "text": "我的"
 
-       }
+       },
+       {
+        "pagePath": "pages/test/test",
+        "text": "测试"
+      }
 
      ]
 

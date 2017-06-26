@@ -1,5 +1,6 @@
 <!--data.wxml-->
-<view class="flex box box-tb box-align-center bd-bottom">
+<view class="weui-panel">
+<view class="flex box box-tb box-align-center">
   <view class="calendar pink-color box box-tb">
         <view class="top-handle fs28 box box-lr box-align-center box-pack-center">
             <view class="prev box box-rl" bindtap="handleCalendar" data-handle="prev">
@@ -24,14 +25,36 @@
         </view>
     </view>
 </view>
+</view><!--panel end-->
 
-<view class="pd25 flex box box-tb box-align-center  bd-bottom">
+<view class="weui-panel">
+    <view class="weui-panel__hd">行程列表</view>
+    <view class="weui-panel__bd">
+      <block wx:if="{{appointmentList.length>0}}">
+      </block>
+      <block wx:else>
+           <view class="weui-media-box weui-media-box_text">
+            <view class="weui-media-box__title weui-media-box__title_in-text">
+             暂无活动</view>
+            <view class="weui-media-box__desc"></view>
+     
+          </view>
+</block>
+
+
+    </view><!--weui-panel_bd end-->
+</view>
+<!--panel end-->
+
+
+<view class="weui-panel">
+<view class="pd25 flex box box-tb box-align-center ">
     <form bindsubmit="listenFormSubmit" bindreser="listenFormReser" >
      <view class="box box-lr box-pack-between box-align-center wd100">
         <checkbox-group bindchange="listenCheckboxChange">
-        <!--这里用label显示内容，for循环写法 wx:for-items 默认item为每一项-->
+        
             <label  wx:for-items="{{items}}">
-            <!--value值和默认选中状态都是通过数据绑定在js中的-->
+            
                 <checkbox value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
             </label>
         </checkbox-group>
@@ -49,11 +72,13 @@
                 
     </view>
     
-    <view class="box box-lr box-pack-between box-align-center wd100">
-            <!--button formType属性两个可选值submit, reset分别会触发form的submit，reser事件 -->
+    <!--<view class="box box-lr box-pack-between box-align-center wd100">
+           
             <button formType="submit" type="primary" class="wd30">提交</button>
             <button formType="reset" type="warn" class="wd30">重置</button>
-    </view>
+    </view>-->
     </form>
     
 </view>
+</view>
+<!--pannel end-->
