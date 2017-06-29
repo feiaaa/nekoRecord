@@ -1,3 +1,4 @@
+<scroll-view class="scroll_view_vertical" scroll-y>
 <view class="page">
   <!--页头-->
   <view class="page__hd"></view>
@@ -77,7 +78,7 @@
   <import src="../../template/footer.wxml"/>
   <template is="foot"></template>
 </view>
-
+</scroll-view>
 <!--添加和修改日记-->
 <image class="toWrite" bindtap="toAddDiary" src="/image/add.png"></image>
 <view class="js_dialog" id="androidDialog1" style="opacity: 1;" wx:if="{{writeDiary}}">
@@ -177,3 +178,4 @@
     </form>
   </view>
 </view>
+

@@ -1,4 +1,6 @@
 <!--data.wxml-->
+<scroll-view class="scroll_view_vertical bg-whitesmoke" scroll-y>
+
 <view class="weui-panel">
 <view class="flex box box-tb box-align-center">
   <view class="calendar pink-color box box-tb">
@@ -82,3 +84,6 @@
 </view>
 </view>
 <!--pannel end-->
+
+
+</scroll-view>

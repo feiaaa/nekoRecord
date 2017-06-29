@@ -10,7 +10,16 @@
   box-sizing: border-box;
 } 
 
-
+/* for scroll*/
+.scroll_view_vertical{
+    height: 100%;
+    margin-bottom: 10px; 
+}
+.scroll_view_horizotal{
+    height: 50px;
+    
+}
+.bg-whitesmoke{background-color: whitesmoke;}
 /* for calendar*/
 page {
   background-color: #fff;
@@ -100,7 +109,9 @@ page {
 .flex {
     flex-grow: 1;
 }
-
+.flex-3 {
+    flex-grow: 3;
+}
 .shrink {
     flex-shrink: 1;
 }
@@ -254,3 +265,10 @@ page {
   flex-direction:row;justify-content: space-between;
 }
 switch{ width: 90%; height: 90%; align-items: center}
+.weui-media-box__fr {
+  float: right;
+  padding-right: 1em;
+}
+.clear{ clear: both}
+.mgb-15{ margin-bottom: 15px; }
+.display-none{display: none;}

@@ -24,7 +24,10 @@ Page({
     windowWidth: 0,
     limit: 10,
     petList: [],
-    modifyPets: false
+    modifyPets: false,
+    urlArr: [],
+    loading: true,
+    url:''
   },
   /**
      * 监听普通picker选择器
@@ -102,6 +105,68 @@ Page({
     })
     this.onShow()
   },
+  /*
+* upImg start
+*/
+  upImg: function () {
+    var that = this;
+    wx.chooseImage({
+      count: 9, // 默认9
+      sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success: function (res) {
+        wx.showNavigationBarLoading()
+        that.setData({
+          loading: false
+        })
+        var urlArr = new Array();
+        // var urlArr={};
+        var tempFilePaths = res.tempFilePaths;
+        console.log(tempFilePaths)
+        var imgLength = tempFilePaths.length;
+        if (imgLength > 0) {
+          var newDate = new Date();
+          var newDateStr = newDate.toLocaleDateString();
+
+          var j = 0;
+          for (var i = 0; i < imgLength; i++) {
+            var tempFilePath = [tempFilePaths[i]];
+            var extension = /\.([^.]*)$/.exec(tempFilePath[0]);
+            if (extension) {
+              extension = extension[1].toLowerCase();
+            }
+            var name = newDateStr + "." + extension;//上传的图片的别名      
+
+            var file = new Bmob.File(name, tempFilePath);
+            file.save().then(function (res) {
+              wx.hideNavigationBarLoading()
+              var url = res.url();
+              console.log("第" + i + "张Url" + url);
+
+              urlArr.push({ "url": url });
+              j++;
+              console.log(j, imgLength);
+              // if (imgLength == j) {
+              //   console.log(imgLength, urlArr);
+              //如果担心网络延时问题，可以去掉这几行注释，就是全部上传完成后显示。
+              showPic(urlArr, that)
+              // }
+
+            }, function (error) {
+              console.log(error)
+            });
+
+          }
+
+        }
+
+      }
+    })
+  },
+/*
+ * upImg end
+ */
+
   toAddPet: function () {
     that.setData({
       writePet: true
@@ -116,6 +181,8 @@ Page({
      
     var gender = event.detail.value.gender;    
     var steri = event.detail.value.steri;
+    var avatarID = event.detail.value.avatarID;
+    
 
     var regNum = new RegExp('[0-9]', 'g');//正则表达式
 
@@ -150,6 +217,7 @@ Page({
       pet.set("tag", tag);
       pet.set("gender", gender);
       pet.set("steri", steri);
+      pet.set("avatarID", avatarID);
 
       if (currentUser) {
         UserModel.id = currentUser.id;
@@ -265,6 +333,12 @@ Page({
     })
   }
 
+
+
+
+
+
+
 })
 
 
@@ -351,4 +425,11 @@ function modify(t, e) {
     })
     common.showTip('修改成功', 'loading');
   }
+}
+//上传完成后显示图片
+function showPic(urlArr, t) {
+  t.setData({
+    loading: true,
+    urlArr: urlArr
+  })
 }

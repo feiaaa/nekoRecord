@@ -1,3 +1,4 @@
+<scroll-view class="scroll_view_vertical" scroll-y>
 <view class="page">
   <!--页头-->
   <view class="page__hd"></view>
@@ -9,32 +10,38 @@
     <view class="weui-panel__hd">宠物列表</view>
         <view class="weui-panel__bd">
 <block wx:if="{{petList.length>0}}">
-          <navigator class="weui-media-box weui-media-box_text" wx:for="{{petList}}" wx:key="petItem" url="/pages/petlist/detail/index?objectId={{item.objectId}}">
-            <view class="weui-media-box__info">
-                <view class="weui-media-box__info__meta tag-radius  tag-active"  data-index="{{item.tag}}" range="{{array}}" value="{{item.tag}}">
-                 {{array[item.tag]}}
-                </view>
-                <view class="weui-media-box__title weui-media-box__title_in-text weui-media-box__info__meta ">
-                  {{item.name}}
-                </view>
-                <view class="weui-media-box__info__meta weui-media-box__info__operate">
-                    <icon type="cancel" size="16"></icon>
-                    <text class="del" catchtap="deletePet" data-id="{{item.objectId}}">删除</text>
-                    <icon type="success" size="16"></icon>
-                    <text catchtap="toModifyPet" data-id="{{item.objectId}}" data-content="{{item.content}}" data-title="{{item.title}}">编辑</text>
-                </view>
+          <navigator class="weui-media-box weui-media-box_text box box-nowrap" wx:for="{{petList}}" wx:key="petItem" url="/pages/petlist/detail/index?objectId={{item.objectId}}">
+           <view class="mgb-15 flex">
+                <image class="userinfo-avatar" src="{{item.avatarID}}" background-size="cover"></image>
+            </view><!--fl end-->
+           <view class="mgb-15 flex-3">    
+                <view class="weui-media-box__info">
+                    <view class="weui-media-box__info__meta tag-radius  tag-active"  data-index="{{item.tag}}" range="{{array}}" value="{{item.tag}}">
+                    {{array[item.tag]}}
+                    </view>
+                    <view class="weui-media-box__title weui-media-box__title_in-text weui-media-box__info__meta ">
+                      {{item.name}}
+                    </view>
+                    <view class="weui-media-box__info__meta weui-media-box__info__operate">
+                        <icon type="cancel" size="16"></icon>
+                        <text class="del" catchtap="deletePet" data-id="{{item.objectId}}">删除</text>
+                        <icon type="success" size="16"></icon>
+                        <text catchtap="toModifyPet" data-id="{{item.objectId}}" data-content="{{item.content}}" data-title="{{item.title}}">编辑</text>
+                    </view>
 
-             </view>
-             <view class="weui-media-box__desc">生日：{{item.birth}}（{{item.age}}个月）</view>
+                </view>
+                <view class="weui-media-box__desc">生日：{{item.birth}}（{{item.age}}个月）</view>
 
 
-            <view class="weui-media-box__info">
-              <view class="weui-media-box__desc weui-media-box__info__meta " wx:if="{{item.gender==false}}">母</view>
-              <view class="weui-media-box__desc weui-media-box__info__meta " wx:else>公</view>
-              <view class="weui-media-box__desc weui-media-box__info__meta " wx:if="{{item.steri==true}}">已绝育</view>
-              <view class="weui-media-box__desc weui-media-box__info__meta " wx:else></view>
-              
-            </view>
+                <view class="weui-media-box__info">
+                  <view class="weui-media-box__desc weui-media-box__info__meta " wx:if="{{item.gender==false}}">母</view>
+                  <view class="weui-media-box__desc weui-media-box__info__meta " wx:else>公</view>
+                  <view class="weui-media-box__desc weui-media-box__info__meta " wx:if="{{item.steri==true}}">已绝育</view>
+                  <view class="weui-media-box__desc weui-media-box__info__meta " wx:else></view>
+                  
+                </view>
+          </view><!--fr end-->
+          
           </navigator>
 </block>
 <block wx:else>
@@ -56,7 +63,7 @@
   <import src="../../template/footer.wxml"/>
   <template is="foot"></template>
 </view>
-
+</scroll-view>
 <!--添加和修改宠物-->
 <image class="toWrite" bindtap="toAddPet" src="/image/add.png"></image>
 <view class="js_dialog" id="androidDialog1" style="opacity: 1;" wx:if="{{writePet}}">
@@ -66,7 +73,40 @@
     <form bindsubmit="addPet">
       <view class="weui-dialog__bd">
         <view class="weui-cells__title">  
-         
+          <!--start-->
+
+          <view class="page-body">
+
+              <view class="btn-area">
+                <loading hidden="{{loading}}">
+                    图片上传中...
+                  </loading>
+                  <button type="primary" bindtap="upImg">图片上传</button>
+                  <view class="weui-panel weui-panel_access">
+                      <block wx:for-items="{{urlArr}}">
+
+                          <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                          <image class="weui-media-box__thumb" src="{{item.url}}" />
+                        </view>
+                        
+                        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg display-none">
+                          <input class="weui-media-box__desc" name="avatarID" value="{{item.url}}"/>
+                        </view>
+
+                      </block>
+                      
+                  </view>
+
+              </view><!-- btn area end-->
+
+          </view><!--page-body end-->
+
+
+
+          <!--end-->
+
+
+
          <view class="weui-cells__title">  
          <picker mode="selector" range="{{array}}" value="{{index}}" name="tag" bindchange="listenerPickerSelected">
                     <text data-index="{{index}}">{{array[index]}}</text>

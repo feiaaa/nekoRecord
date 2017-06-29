@@ -1,12 +1,40 @@
 <!--me.wxml-->
 <view class="container">
-  <view  bindtap="bindViewTap" class="userinfo">
-    <text class="user-motto">233333</text>
-    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    
+  <view bindtap="bindViewTap" class="userinfo">
+        <!--<text class="user-motto">这是一个临时的，默认的，初始化的页面</text>
+      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>-->
+      222
   </view>
+<!--start-->
+
+<view class="page-body">
+
+    <view class="btn-area">
+      <loading hidden="{{loading}}">
+          图片上传中...
+        </loading>
+        <button type="primary" bindtap="upImg">图片上传</button>
+        <view class="weui-panel weui-panel_access">
+            <block wx:for-items="{{urlArr}}">
+
+                <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                <image class="weui-media-box__thumb" src="{{item.url}}" />
+              </view>
+              <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                <view class="weui-media-box__desc display-none" name="avatarID" >{{item.url}}</view>
+              </view>
+
+            </block>
+            
+        </view>
+
+    </view><!-- btn area end-->
+
+</view><!--page-body end-->
 
 
+
+<!--end-->
 
 </view>
