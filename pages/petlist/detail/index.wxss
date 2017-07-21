@@ -1,1 +1,11 @@
-/* pages/index/detail/index.wxss */
+/* pages/petlist/detail/index.wxss */
+/**宠物详情**/
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.i-header{
+  height: 100%;  
+  text-align: center;
+}

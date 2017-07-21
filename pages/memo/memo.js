@@ -73,9 +73,7 @@ Page({
     if (!title) {
       common.showTip("标题不能为空", "loading");
     }
-    else if (!content) {
-      common.showTip("内容不能为空", "loading");
-    }
+    
     else {
       that.setData({
         loading: true
@@ -151,14 +149,14 @@ Page({
     })
   },
   toModifyDiary: function (event) {
-    var nowTile = event.target.dataset.title;
+    var nowTitle = event.target.dataset.title;
     var nowContent = event.target.dataset.content;
     var nowTag = event.target.dataset.tag;//new
     var nowAddress = event.target.dataset.address;//new
     var nowId = event.target.dataset.id;
     that.setData({
       modifyDiarys: true,
-      nowTitle: nowTile,
+      nowTitle: nowTitle,
       nowContent: nowContent,
       nowTag:nowTag,//
       nowAddress:nowAddress,//
@@ -243,12 +241,13 @@ function modify(t, e) {
   //修改日记
   var modyTitle = e.detail.value.title;
   var modyContent = e.detail.value.content;
+  //var modyAddress = e.detail.value.address;
   var objectId = e.detail.value.content;
   var thatTitle = that.data.nowTitle;
   var thatContent = that.data.nowContent;
-  if ((modyTitle != thatTitle || modyContent != thatContent)) {
-    if (modyTitle == "" || modyContent == "") {
-      common.showTip('标题或内容不能为空', 'loading');
+  if (modyTitle != thatTitle ) {
+    if (modyTitle == "") {
+      common.showTip('标题不能为空', 'loading');
     }
     else {
       console.log(modyContent)
@@ -261,6 +260,7 @@ function modify(t, e) {
           // 回调中可以取得这个 GameScore 对象的一个实例，然后就可以修改它了
           result.set('title', modyTitle);
           result.set('content', modyContent);
+          //result.set('address', modyAddress);
           result.save();
           common.showTip('日记修改成功', 'success', function () {
             that.onShow();
@@ -277,8 +277,8 @@ function modify(t, e) {
       });
     }
   }
-  else if (modyTitle == "" || modyContent == "") {
-    common.showTip('标题或内容不能为空', 'loading');
+  else if (modyTitle == "" ) {
+    common.showTip('标题不能为空', 'loading');
   }
   else {
     that.setData({

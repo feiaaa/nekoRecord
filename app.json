@@ -4,7 +4,9 @@
     "pages/logs/logs",   
     "pages/calendar/calendar",
     "pages/memo/memo",
+    "pages/memo/detail/index",
     "pages/petlist/petlist",
+    "pages/petlist/detail/index",
     "pages/test/test"
   ],
   "window":{

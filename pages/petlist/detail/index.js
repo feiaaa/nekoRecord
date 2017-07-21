@@ -15,8 +15,8 @@ Page({
     //   return false;
     // }
 
-    var Diary = Bmob.Object.extend("diary");
-    var query = new Bmob.Query(Diary);
+    var Petlist = Bmob.Object.extend("petlist");
+    var query = new Bmob.Query(Petlist);
 
     query.get(objectId, {
       success: function (result) {

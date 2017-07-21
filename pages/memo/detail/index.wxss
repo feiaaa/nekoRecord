@@ -1,1 +1,17 @@
-/* pages/index/detail/index.wxss */
+/* pages/memo/detail/index.wxss */
+.tag-radius{
+  border-radius: 5%;
+  padding: 0.1em;
+  margin-right:1em;  
+    position: relative;
+    left: 0;
+    top: 0;    
+}
+.tag-active{
+   border:1px solid #ff629a;
+   color:#ff629a;
+}
+.tag-inactive{
+  border:1px solid #999999;
+  color: #999999;
+}

@@ -26,7 +26,7 @@ Page({
     petList: [],
     modifyPets: false,
     urlArr: [],
-    loading: true,
+    loadingA: true,
     url:''
   },
   /**
@@ -117,7 +117,7 @@ Page({
       success: function (res) {
         wx.showNavigationBarLoading()
         that.setData({
-          loading: false
+          loadingA: false
         })
         var urlArr = new Array();
         // var urlArr={};
@@ -429,7 +429,7 @@ function modify(t, e) {
 //上传完成后显示图片
 function showPic(urlArr, t) {
   t.setData({
-    loading: true,
+    loadingA: true,
     urlArr: urlArr
   })
 }

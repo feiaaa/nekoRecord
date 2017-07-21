@@ -74,9 +74,7 @@
     </scroll-view>
   </view>
   <!--主体 end-->
-  <!--页脚-->
-  <import src="../../template/footer.wxml"/>
-  <template is="foot"></template>
+  
 </view>
 </scroll-view>
 <!--添加和修改日记-->
@@ -89,7 +87,7 @@
       <view class="weui-dialog__bd">
          
          <radio-group name="tag">
-              <label class="flex-row" wx:for-items="{{items}}">
+              <label class="flex-row" wx:for-items="{{items}}" wx:key="item.value">
                   <radio value="{{item.name}}"/>{{item.value}}
               </label>
           </radio-group>
@@ -108,7 +106,7 @@
         <view class="weui-cells weui-cells_after-title">
           <view class="weui-cell weui-cell_input">
             <view class="weui-cell__bd">
-              <input class="weui-input" name="address" value="{{nowAddress}}" placeholder="请输入地点" />
+              <input class="weui-input" name="address" value="{{Address}}" placeholder="请输入地点" />
             </view>
           </view>
         </view>
@@ -149,9 +147,14 @@
 <view class="js_dialog" id="androidDialog2" style="opacity: 1;" wx:if="{{modifyDiarys}}">
   <view class="weui-mask"></view>
   <view class="weui-dialog weui-skin_android">
-    <view class="weui-dialog__hd"><strong class="weui-dialog__title">修改日记</strong>  </view>
+    <view class="weui-dialog__hd"><strong class="weui-dialog__title">修改内容</strong>  </view>
     <form bindsubmit="modifyDiary">
       <view class="weui-dialog__bd">
+            <radio-group name="nowTag">
+                <label class="flex-row" wx:for-items="{{items}}"  wx:key="item.value">
+                    <radio value="{{item.name}}"/>{{item.value}}
+                </label>
+            </radio-group>
         <view class="weui-cells__title">标题</view>
         <view class="weui-cells weui-cells_after-title">
           <view class="weui-cell weui-cell_input">
@@ -161,11 +164,36 @@
           </view>
         </view>
         
-        <view class="weui-cells__title">日记内容</view>
+        <view class="weui-cells__title">地点</view>
+        <view class="weui-cells weui-cells_after-title">
+          <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__bd">
+              <input class="weui-input" name="address" value="{{nowAddress}}" placeholder="请输入地点" />
+            </view>
+          </view>
+        </view>
+
+        <view class="weui-cells__title">活动时间</view>
+        <view class="weui-cells weui-cells_after-title">
+          <view class="weui-cell">
+            <view class="weui-media-box__info__meta flex-row">
+              
+                <picker mode="date" value="{{date}}" name="date" start="2016-09-26" end="2017-10-10">
+                    <text>{{date}}</text>
+                </picker>
+                <picker mode="time" value="{{time}}" name="appointment" start="09:00" end="21:00">
+                    <text>{{time}}</text>
+                </picker>
+
+            </view>
+          </view>
+        </view>
+
+        <view class="weui-cells__title">备注</view>
         <view class="weui-cells weui-cells_after-title">
           <view class="weui-cell">
             <view class="weui-cell__bd">
-              <textarea class="weui-textarea" name="content" value="{{nowContent}}" placeholder="请输入日记内容" style="height: 3.3em" />
+              <textarea class="weui-textarea" name="content" value="{{nowContent}}" placeholder="请输入备注内容" style="height: 3.3em" />
               <view class="weui-textarea-counter">0/200</view>
             </view>
           </view>
