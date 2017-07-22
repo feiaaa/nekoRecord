@@ -16,8 +16,9 @@ Page({
       { name: '洗澡', value: '洗澡' }
     ],
     currentTime: Date.now(),//util.formatTime(new Date),//此处为时间戳，如果要显示当前时间用后者
-    //date: '2017-6-12',
-    time: '2017-6-12 17:12',
+    date: '2017-6-12',
+    time: '17:12',
+    //overdue: '',
     writeDiary: false,
     loading: false,
     windowHeight: 0,
@@ -49,6 +50,19 @@ Page({
       }
     })
   },
+  /**
+   * 监听日期时间picker选择器
+   */
+  listenerDatePickerSelected: function (e) {
+    this.setData({
+      date: e.detail.value
+    })
+  },
+  listenerTimePickerSelected: function (e) {
+    this.setData({
+      time: e.detail.value
+    })
+  },
   pullUpLoad: function (e) {
     var limit = that.data.limit + 2
     this.setData({
@@ -66,10 +80,10 @@ Page({
     var content = event.detail.value.content;
     var address = event.detail.value.address;//new
     var tag = event.detail.value.tag;//new
-    //var date = event.detail.value.date;//new
-    //var time = event.detail.value.time;//new
-    //var appointment=date+""+time;//new
-    var appointment=event.detail.value.time;
+    var date = event.detail.value.date;//new
+    var time = event.detail.value.time+":00";//new
+    var appointment=date+" "+time;//new
+
     if (!title) {
       common.showTip("标题不能为空", "loading");
     }
@@ -92,8 +106,9 @@ Page({
       diary.set("content", content);
       diary.set("address", address);//new
       diary.set("tag", tag);//new
-      diary.set("appointment", appointment);//new
-
+      diary.set("appointment", changeDate(appointment));//new
+      diary.set("appUnix", changeDate(appointment).getTime());//new
+      
       if (currentUser) {
         UserModel.id = currentUser.id;
         diary.set("own", UserModel);
@@ -153,13 +168,18 @@ Page({
     var nowContent = event.target.dataset.content;
     var nowTag = event.target.dataset.tag;//new
     var nowAddress = event.target.dataset.address;//new
+    var nowDate = event.target.dataset.date;//new
+    var nowTime = event.target.dataset.time;//new
+
     var nowId = event.target.dataset.id;
     that.setData({
       modifyDiarys: true,
       nowTitle: nowTitle,
       nowContent: nowContent,
-      nowTag:nowTag,//
-      nowAddress:nowAddress,//
+      //nowTag:nowTag,//
+      nowAddress: nowAddress,//
+      nowDate: nowDate,
+      nowTime: nowTime,
       nowId: nowId
     })
   },
@@ -225,7 +245,7 @@ function getList(t, k) {
   query.find({
     success: function (results) {
       // 循环处理查询到的数据
-      console.log(results);
+      //console.log(results);
       that.setData({
         diaryList: results
       })
@@ -241,11 +261,18 @@ function modify(t, e) {
   //修改日记
   var modyTitle = e.detail.value.title;
   var modyContent = e.detail.value.content;
-  //var modyAddress = e.detail.value.address;
-  var objectId = e.detail.value.content;
+  var modyTag = e.detail.value.tag;//new
+  var modyAddress = e.detail.value.address;//new
+  var modyDate = e.detail.value.date;//new
+  var modyTime = e.detail.value.time;//new
+
+
+  var objectId = e.detail.value.objectId;//原为var objectId = e.detail.value.content;
   var thatTitle = that.data.nowTitle;
   var thatContent = that.data.nowContent;
-  if (modyTitle != thatTitle ) {
+  var thatTag = that.data.nowTag;//new
+  var thatAddress = that.data.nowAddress;//new
+  if (modyTitle != thatTitle || modyContent != thatContent || modyAddress != thatAddress || modyTag != thatTag) {
     if (modyTitle == "") {
       common.showTip('标题不能为空', 'loading');
     }
@@ -260,7 +287,8 @@ function modify(t, e) {
           // 回调中可以取得这个 GameScore 对象的一个实例，然后就可以修改它了
           result.set('title', modyTitle);
           result.set('content', modyContent);
-          //result.set('address', modyAddress);
+          result.set('address', modyAddress);//new
+          result.set('tag', modyTag);//new
           result.save();
           common.showTip('日记修改成功', 'success', function () {
             that.onShow();
@@ -277,7 +305,7 @@ function modify(t, e) {
       });
     }
   }
-  else if (modyTitle == "" ) {
+  else if (modyTitle == "") {
     common.showTip('标题不能为空', 'loading');
   }
   else {
@@ -286,4 +314,15 @@ function modify(t, e) {
     })
     common.showTip('修改成功', 'loading');
   }
+}
+
+
+
+//string转date
+function changeDate(appointment) {
+  //var appointment = date + " " + time;//new
+  var val = Date.parse(appointment);
+  var newDate = new Date(appointment);
+  return newDate;
+
 }

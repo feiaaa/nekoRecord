@@ -29,35 +29,36 @@
     <view class="weui-panel__hd">预约列表</view>
         <view class="weui-panel__bd">
 <block wx:if="{{diaryList.length>0}}">
+         
           <navigator class="weui-media-box weui-media-box_text" wx:for="{{diaryList}}" wx:key="diaryItem" url="/pages/memo/detail/index?objectId={{item.objectId}}">
             <view class="weui-media-box__info">
-                <view class="weui-media-box__info__meta tag-radius  tag-active">
-                  {{item.tag}}
-                </view>
-                <view class="weui-media-box__title weui-media-box__title_in-text weui-media-box__info__meta ">
-                  {{item.title}}
-                </view>
-                <view class="weui-media-box__info__meta weui-media-box__info__operate">
-                    <icon type="cancel" size="16"></icon>
-                    <text class="del" catchtap="deleteDiary" data-id="{{item.objectId}}">删除</text>
-                    <icon type="success" size="16"></icon>
-                    <text catchtap="toModifyDiary" data-id="{{item.objectId}}" data-content="{{item.content}}" data-title="{{item.title}}">编辑</text>
-                </view>
+              <view class="weui-media-box__info__meta tag-radius tag-inactive" wx:if="{{currentTime>item.appUnix}}">已过期</view>
+              <view class="weui-media-box__info__meta tag-radius {{currentTime>item.appUnix? 'tag-inactive':'tag-active'}}">
+                {{item.tag}}
+              </view>                
+              <view class="weui-media-box__title weui-media-box__title_in-text weui-media-box__info__meta ">
+                {{item.title}}
+              </view>
+              <view class="weui-media-box__info__meta weui-media-box__info__operate">
+                  <icon type="cancel" size="16"></icon>
+                  <text class="del" catchtap="deleteDiary" data-id="{{item.objectId}}">删除</text>
+                  <icon type="success" size="16"></icon>
+                  <text catchtap="toModifyDiary" data-id="{{item.objectId}}" data-content="{{item.content}}" data-title="{{item.title}}">编辑</text>
+              </view>
 
-             </view>
-             <view class="weui-media-box__desc">{{currentTime}}</view>
+            </view>
             <view class="weui-media-box__desc">地点：{{item.address}}</view>
             <view class="weui-media-box__desc">备注：{{item.content}}</view>
 
             <view class="weui-media-box__info">
               <view class="weui-media-box__info__meta weui-media-time">预约：{{item.appointment}}</view>
-              <!--<view class="weui-media-box__info__meta weui-media-time">修改时间：{{item.updatedAt}}</view>-->
               <view class="weui-media-box__info__meta weui-media-box__info__operate">
-                    <icon type="cancel" size="16"></icon>
-                    <text class="del" catchtap="deleteDiary" data-id="{{item.objectId}}">提醒</text>
+                <icon type="info" size="16"></icon>
+                <text catchtap="infoDiary" data-id="{{item.objectId}}">提醒</text>
               </view>
             </view>
           </navigator>
+          
 </block>
 <block wx:else>
            <view class="weui-media-box weui-media-box_text">
@@ -106,7 +107,7 @@
         <view class="weui-cells weui-cells_after-title">
           <view class="weui-cell weui-cell_input">
             <view class="weui-cell__bd">
-              <input class="weui-input" name="address" value="{{Address}}" placeholder="请输入地点" />
+              <input class="weui-input" name="address" placeholder="请输入地点" />
             </view>
           </view>
         </view>
@@ -114,12 +115,12 @@
         <view class="weui-cells__title">活动时间</view>
         <view class="weui-cells weui-cells_after-title">
           <view class="weui-cell">
-            <view class="weui-media-box__info__meta flex-row">
+            <view class="weui-media-box__info__meta flex">
               
-                <picker mode="date" value="{{date}}" name="date" start="2016-09-26" end="2017-10-10">
+                <picker mode="date" value="{{date}}" name="date" start="2016-09-26" end="2017-10-10" bindchange="listenerDatePickerSelected">
                     <text>{{date}}</text>
                 </picker>
-                <picker mode="time" value="{{time}}" name="appointment" start="09:00" end="21:00">
+                <picker mode="time" value="{{time}}" name="time" start="09:00" end="21:00" bindchange="listenerTimePickerSelected">
                     <text>{{time}}</text>
                 </picker>
 
@@ -178,11 +179,11 @@
           <view class="weui-cell">
             <view class="weui-media-box__info__meta flex-row">
               
-                <picker mode="date" value="{{date}}" name="date" start="2016-09-26" end="2017-10-10">
-                    <text>{{date}}</text>
+                <picker mode="date" value="{{nowDate}}" name="date" start="2016-09-26" end="2017-10-10">
+                    <text>{{nowDate}}</text>
                 </picker>
-                <picker mode="time" value="{{time}}" name="appointment" start="09:00" end="21:00">
-                    <text>{{time}}</text>
+                <picker mode="time" value="{{nowTime}}" name="time" start="09:00" end="21:00">
+                    <text>{{nowTime}}</text>
                 </picker>
 
             </view>

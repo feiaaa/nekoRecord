@@ -61,7 +61,7 @@ z-index: 999;
   padding-bottom: 0px;
 }
 .weui-media-time{
-  width:260rpx;
+  width:360rpx;
   height: 1em;
   overflow: hidden;
 }

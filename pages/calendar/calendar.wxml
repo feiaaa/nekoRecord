@@ -33,9 +33,23 @@
     <view class="weui-panel__hd">行程列表</view>
     <view class="weui-panel__bd">
       <block wx:if="{{appointmentList.length>0}}">
+        <navigator class="weui-media-box weui-media-box_text" wx:for="{{diaryList}}" wx:key="diaryItem" url="/pages/memo/detail/index?objectId={{item.objectId}}">
+            <view class="weui-media-box__info">            
+              <view class="weui-media-box__info__meta tag-radius tag-active">
+                {{item.tag}}
+              </view>                
+              <view class="weui-media-box__title weui-media-box__title_in-text weui-media-box__info__meta ">
+                {{item.title}}
+              </view>
+              <view class="weui-media-box__info__meta weui-media-box__info__operate">
+                  {{item.address}}
+              </view>             
+            </view>
+            <view class="weui-media-box__desc">{{item.appointment}}</view>
+          </navigator>
       </block>
       <block wx:else>
-           <view class="weui-media-box weui-media-box_text">
+          <view class="weui-media-box weui-media-box_text">
             <view class="weui-media-box__title weui-media-box__title_in-text">
              暂无活动</view>
             <view class="weui-media-box__desc"></view>
